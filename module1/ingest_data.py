@@ -47,8 +47,7 @@ parse_dates = [
 @click.option("--pg-db", default="ny_taxi", show_default=True, help="Postgres database name")
 @click.option("--chunksize", default=100000, type=int, show_default=True, help="Number of rows per chunk")
 @click.option("--table", default="green_taxi_data", show_default=True, help="Target table name in the database")
-@click.option("--url", default=None, help="Full URL to the CSV.GZ file (if not provided it will be constructed)")
-def run(file, year, month, pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, table, url, workdir, debug):
+def run(file, pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, table):
     """
     Ingest NYC green taxi data into Postgres. File can be specified directly or constructed from year/month.
     """
