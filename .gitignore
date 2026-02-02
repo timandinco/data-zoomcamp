@@ -209,3 +209,5 @@ __marimo__/
 
 # Custom ignores
 *.parquet
+service-account.json
+.env_encoded
