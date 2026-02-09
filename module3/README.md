@@ -48,7 +48,8 @@ FROM omega-healer-485222-s1.zoomcamp.yellow_tripdata_nonpartitioned_table;
 -- 310.24 MB
 ```
 
-**LLM**
+**LLM**\
+
 In BigQuery every column is stored separately on disk (Google’s proprietary “Capacitor” column-format).
 When the SQL planner builds a query it:
 
@@ -139,7 +140,8 @@ No Points: Write a SELECT count(*) query FROM the materialized table you created
 SELECT COUNT(*)
 FROM omega-healer-485222-s1.zoomcamp.yellow_tripdata_nonpartitioned_table
 ```
-**LLM**
+**LLM**\
+
 Because BigQuery does not have to read any of the table’s column data to answer that particular question.
 The engine can return an exact row-count by reading only the table’s stored metadata, so the amount of “bytes processed” is reported—and billed—as 0 MB.
 
