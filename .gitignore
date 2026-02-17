@@ -216,3 +216,4 @@ config/*
 
 # Data directory
 data/
+*.duckdb

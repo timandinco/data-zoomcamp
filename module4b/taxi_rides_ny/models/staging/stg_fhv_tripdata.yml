@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_fhv_tripdata
+    description: "Staging model for FHV trip data: cleans and normalizes raw FHV records."
+    columns:
+      - name: dispatching_base_number
+        description: "Dispatching base number (mapped from raw `dispatching_base_num`)."
+        tests:
+          - not_null
+      - name: pickup_datetime
+        description: "Pickup timestamp."
+        tests:
+          - not_null
+      - name: dropoff_datetime
+        description: "Dropoff timestamp."
+      - name: pickup_location_id
+        description: "Pickup location id (mapped from `PUlocationID`)."
+      - name: dropoff_location_id
+        description: "Dropoff location id (mapped from `DOlocationID`)."
+      - name: sr_flag
+        description: "Service request flag (raw `SR_Flag`)."
+      - name: affiliated_base_number
+        description: "Affiliated base number (raw `Affiliated_base_number`)."

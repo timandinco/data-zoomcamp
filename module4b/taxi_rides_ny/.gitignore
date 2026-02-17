@@ -6,4 +6,4 @@ logs/
 # Data directory
 data/
 seeds/
-taxi_rides_ny.duckdb
+*.duckdb
