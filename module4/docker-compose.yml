@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  jupyter:
+    build: .
+    container_name: jupyter-gcs
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/workspace/notebooks
+      - ./data:/workspace/data
+      # Mount gcloud credentials
+      - ~/.config/gcloud:/root/.config/gcloud:ro
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=
+    restart: unless-stopped

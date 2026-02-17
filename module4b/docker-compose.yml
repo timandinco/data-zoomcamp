@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  dbt:
+    build: .
+    container_name: dbt-duckdb
+    volumes:
+      - ./dbt:/dbt
+      - ./dbt/data:/data
+    tty: true
+    stdin_open: true

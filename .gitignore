@@ -211,3 +211,5 @@ __marimo__/
 *.parquet
 service-account.json
 .env_encoded
+
+config/*

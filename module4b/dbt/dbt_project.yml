@@ -1,0 +1,16 @@
+name: "zoomcamp"
+version: "1.0.0"
+config-version: 2
+
+profile: "taxi_rides_ny"
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"

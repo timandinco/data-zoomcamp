@@ -1,0 +1,5 @@
+data/
+*.duckdb
+*.log
+*.dbt/
+*.dbt_packages/
