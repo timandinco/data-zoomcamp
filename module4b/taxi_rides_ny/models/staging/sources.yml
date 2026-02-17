@@ -10,3 +10,5 @@ sources:
         description: "Yellow taxi trips data"
       - name: green_tripdata
         description: "Green taxi trips data"
+      - name: fhv_tripdata
+        description: "FHV trips data"

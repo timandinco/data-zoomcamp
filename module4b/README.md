@@ -378,3 +378,49 @@ Create a staging model for the For-Hire Vehicle (FHV) trip data for 2019.
      - Rename fields to match your project's naming conventions (e.g., PUlocationID → pickup_location_id)
 
 What is the count of records in stg_fhv_tripdata?
+
+**LLM Support**
+Answer (what I created and how I reached the count — brief):
+
+- What I created:
+  - An updated ingest script `/home/zonate/dev/datatalks/data-zoomcamp/module4b/taxi_rides_ny/ingest_ny_fhv.py` that downloads 2019 FHV CSV.gz files, converts them to Parquet, and cleans up intermediates.
+  - A DuckDB table `prod.fhv_tripdata` loaded from the Parquet files.
+  - A dbt staging model `models/staging/stg_fhv_tripdata.sql` which:
+    - Filters out rows where `dispatching_base_num` IS NULL
+    - Renames raw fields to project conventions (e.g., `PUlocationID` → `pickup_location_id`, `dropOff_datetime` → `dropoff_datetime`)
+  - A schema file `models/staging/stg_fhv_tripdata.yml` with `not_null` tests for key columns.
+
+- Commands I ran (reproducible):
+
+1) Download & convert 2019 files:
+```bash
+python3 module4b/taxi_rides_ny/ingest_ny_fhv.py
+```
+
+2) Load Parquet files into the project's DuckDB used by dbt:
+```sql
+-- run from shell using duckdb CLI
+duckdb /home/zonate/dev/datatalks/data-zoomcamp/module4b/taxi_rides_ny/taxi_rides_ny.duckdb \
+  "CREATE SCHEMA IF NOT EXISTS prod;
+    CREATE OR REPLACE TABLE prod.fhv_tripdata AS
+    SELECT * FROM read_parquet('/home/zonate/dev/datatalks/data-zoomcamp/module4b/taxi_rides_ny/data/fhv/*.parquet', union_by_name=true);"
+```
+
+3) Materialize dbt models (creates `dev.stg_fhv_tripdata` view):
+```bash
+cd /home/zonate/dev/datatalks/data-zoomcamp/module4b/taxi_rides_ny
+dbt run
+```
+
+4) Count rows in the staging model (the query I ran to get the answer):
+```sql
+SELECT COUNT(*) FROM dev.stg_fhv_tripdata;
+-- result: 43244693
+```
+
+- Conclusion:
+  - After downloading 2019 FHV data, loading it into DuckDB, and creating the `stg_fhv_tripdata` staging view (which filters out records with NULL `dispatching_base_num`), the row count of `stg_fhv_tripdata` is 43,244,693.
+
+If you'd like, I can now commit this change. Approve to commit, or request edits to wording or SQL snippets.
+
+**Thanks LLM** (That was pretty crazy!)

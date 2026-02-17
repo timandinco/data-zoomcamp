@@ -213,3 +213,6 @@ service-account.json
 .env_encoded
 
 config/*
+
+# Data directory
+data/
