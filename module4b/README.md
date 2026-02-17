@@ -1,6 +1,8 @@
 # Module 4 Homework
 
-## Question 1. dbt Lineage and Execution
+---
+
+# Question 1. dbt Lineage and Execution
 
 Given a dbt project with the following structure:
 
@@ -34,7 +36,7 @@ dbt run --select int_trips_unioned
 
 ---
 
-# 🎯 What Gets Built?
+## 🎯 What Gets Built?
 
 ✅ **Only** `int_trips_unioned`
 
@@ -43,7 +45,7 @@ dbt run --select int_trips_unioned
 
 ---
 
-# 🧠 Why?
+## 🧠 Why?
 
 By default, `--select` includes **only the specified node**, not its parents or children.
 
@@ -55,7 +57,7 @@ It does **not** automatically build upstream dependencies unless you tell it to.
 
 ---
 
-# 🚀 If You Want Upstream Models Built Too
+## 🚀 If You Want Upstream Models Built Too
 
 Use the `+` selector:
 
@@ -81,7 +83,7 @@ dbt run --select +int_trips_unioned+
 
 ---
 
-# 🎯 Important Real-World Detail
+## 🎯 Important Real-World Detail
 
 Even though dbt doesn’t rebuild the staging models, it will still:
 
@@ -92,7 +94,7 @@ So if you haven’t built them yet, the run will fail.
 
 ---
 
-# 📌 Quick Selector Cheat Sheet
+## 📌 Quick Selector Cheat Sheet
 
 | Command                        | What Gets Built               |
 | ------------------------------ | ----------------------------- |
@@ -103,7 +105,7 @@ So if you haven’t built them yet, the run will fail.
 
 ---
 
-# 🧠 Mental Model
+## 🧠 Mental Model
 
 Think of:
 
@@ -118,15 +120,15 @@ Let’s break it down clearly.
 
 ---
 
-# 🧠 First: What’s the Difference?
+## 🧠 First: What’s the Difference?
 
-## `dbt run`
+### `dbt run`
 
 * Builds **models only**
 * Does **not** run tests
 * Does **not** run seeds or snapshots
 
-## `dbt build`
+### `dbt build`
 
 * Builds models
 * Runs tests
@@ -140,7 +142,7 @@ Think of:
 
 ---
 
-# 🎯 Now Using Your Example Graph
+## 🎯 Now Using Your Example Graph
 
 ```
 stg_green_tripdata   stg_yellow_tripdata
@@ -151,7 +153,7 @@ stg_green_tripdata   stg_yellow_tripdata
 
 ---
 
-# Scenario 1
+## Scenario 1
 
 ```bash
 dbt run --select int_trips_unioned
@@ -167,7 +169,7 @@ Assumes parents already exist.
 
 ---
 
-# Scenario 2
+## Scenario 2
 
 ```bash
 dbt build --select int_trips_unioned
@@ -183,7 +185,7 @@ Important: It does **not** automatically build parents unless you add `+`.
 
 ---
 
-# Scenario 3 (Most Common Production Pattern)
+## Scenario 3 (Most Common Production Pattern)
 
 ```bash
 dbt build --select +int_trips_unioned
@@ -200,13 +202,13 @@ Because `+` pulls in upstream dependencies.
 
 ---
 
-# 🚨 Important Subtle Difference
+## 🚨 Important Subtle Difference
 
 Here’s the trick:
 
-### `dbt run` ignores tests entirely.
+#### `dbt run` ignores tests entirely.
 
-### `dbt build` respects dependency graph for tests.
+#### `dbt build` respects dependency graph for tests.
 
 Example:
 
@@ -224,7 +226,7 @@ It will:
 
 ---
 
-# 🧠 Even More Subtle
+## 🧠 Even More Subtle
 
 If you do:
 
@@ -242,7 +244,7 @@ This is why `build` is preferred in CI/CD pipelines.
 
 ---
 
-# 🎓 Interview Trick Question
+## 🎓 Interview Trick Question
 
 > If you run `dbt build --select model_x`, will upstream tests run?
 
@@ -253,21 +255,21 @@ Only tests for selected nodes are included unless `+` expands selection.
 
 ---
 
-# 🚀 Best Practice Patterns
+## 🚀 Best Practice Patterns
 
-### Development (fast iteration)
+#### Development (fast iteration)
 
 ```bash
 dbt run --select my_model
 ```
 
-### Rebuilding a subgraph
+#### Rebuilding a subgraph
 
 ```bash
 dbt build --select +my_model
 ```
 
-### CI / Production
+#### CI / Production
 
 ```bash
 dbt build
@@ -277,7 +279,7 @@ dbt build
 
 ---
 
-# 🎯 Mental Model
+## 🎯 Mental Model
 
 | Command      | Builds Parents? | Runs Tests? |
 | ------------ | --------------- | ----------- |
@@ -288,7 +290,7 @@ dbt build
 
 ---
 
-# 🔥 Why This Matters
+## 🔥 Why This Matters
 
 In production:
 
@@ -298,7 +300,8 @@ In production:
 
 ---
 
-## Question 2. - dbt Tests
+
+# Question 2. - dbt Tests
 
 You've configured a generic test like this in your schema.yml:
 
@@ -326,7 +329,8 @@ What happens when you run dbt test --select fct_trips?
 00:35:35  Done. PASS=8 WARN=0 ERROR=1 SKIP=0 NO-OP=0 TOTAL=9
 ```
 
-## Question 3. Counting Records in fct_monthly_zone_revenue
+
+# Question 3. Counting Records in fct_monthly_zone_revenue
 
 After running your dbt project, query the fct_monthly_zone_revenue model.
 
@@ -337,7 +341,7 @@ SELECT COUNT(*) FROM taxi_rides_ny.prod.fct_monthly_zone_revenue
 -- 12184
 ```
 
-## Question 4. Best Performing Zone for Green Taxis (2020)
+# Question 4. Best Performing Zone for Green Taxis (2020)
 
 Using the fct_monthly_zone_revenue table, find the pickup zone with the highest total revenue (revenue_monthly_total_amount) for Green taxi trips in 2020.
 
@@ -355,7 +359,8 @@ LIMIT 20
 **Answer**
 East Harlem North
 
-## Question 5. Green Taxi Trip Counts (October 2019)
+
+# Question 5. Green Taxi Trip Counts (October 2019)
 
 Using the fct_monthly_zone_revenue table, what is the total number of trips (total_monthly_trips) for Green taxis in October 2019?
 
@@ -368,7 +373,8 @@ AND date_part('month', revenue_month) = 10
 -- 384624
 ```
 
-## Question 6. Build a Staging Model for FHV Data
+
+# Question 6. Build a Staging Model for FHV Data
 
 Create a staging model for the For-Hire Vehicle (FHV) trip data for 2019.
 
@@ -380,6 +386,7 @@ Create a staging model for the For-Hire Vehicle (FHV) trip data for 2019.
 What is the count of records in stg_fhv_tripdata?
 
 **LLM Support**
+---
 Answer (what I created and how I reached the count — brief):
 
 - What I created:
@@ -422,5 +429,7 @@ SELECT COUNT(*) FROM dev.stg_fhv_tripdata;
   - After downloading 2019 FHV data, loading it into DuckDB, and creating the `stg_fhv_tripdata` staging view (which filters out records with NULL `dispatching_base_num`), the row count of `stg_fhv_tripdata` is 43,244,693.
 
 If you'd like, I can now commit this change. Approve to commit, or request edits to wording or SQL snippets.
+
+---
 
 **Thanks LLM** (That was pretty crazy!)
