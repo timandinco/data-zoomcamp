@@ -4,12 +4,14 @@
 
 Given a dbt project with the following structure:
 
+```
 models/
 ├── staging/
 │   ├── stg_green_tripdata.sql
 │   └── stg_yellow_tripdata.sql
 └── intermediate/
     └── int_trips_unioned.sql (depends on stg_green_tripdata & stg_yellow_tripdata)
+```
 
 If you run dbt run --select int_trips_unioned, what models will be built?
 
@@ -365,3 +367,14 @@ AND date_part('year', revenue_month) = 2019
 AND date_part('month', revenue_month) = 10
 -- 384624
 ```
+
+## Question 6. Build a Staging Model for FHV Data
+
+Create a staging model for the For-Hire Vehicle (FHV) trip data for 2019.
+
+  1. Load the FHV trip data for 2019 into your data warehouse
+  2. Create a staging model stg_fhv_tripdata with these requirements:
+     - Filter out records where dispatching_base_num IS NULL
+     - Rename fields to match your project's naming conventions (e.g., PUlocationID → pickup_location_id)
+
+What is the count of records in stg_fhv_tripdata?
