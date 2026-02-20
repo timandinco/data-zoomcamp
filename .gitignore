@@ -217,3 +217,9 @@ config/*
 # Data directory
 data/
 *.duckdb
+*.db
+
+.bruin.yml
+logs/runs
+logs/*.log
+*.py[cod]
