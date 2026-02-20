@@ -156,6 +156,7 @@ WITH raw AS (
     AND pickup_datetime < '{{ end_datetime }}'
     AND pickup_datetime IS NOT NULL
     AND total_amount IS NOT NULL
+    AND total_amount >= 0
 ),
 joined AS (
   SELECT r.*, p.payment_type_name

@@ -212,6 +212,44 @@ def materialize():
   else:
     result = pd.DataFrame()
 
+  # Normalize source column names to the canonical schema expected by downstream assets
+  if not result.empty:
+    # map of canonical_name -> candidate source names (checked case-insensitively)
+    candidates = {
+      'vendor_id': ['vendorid', 'vendor_id'],
+      'pickup_datetime': ['lpep_pickup_datetime', 'tpep_pickup_datetime', 'pickup_datetime'],
+      'dropoff_datetime': ['lpep_dropoff_datetime', 'tpep_dropoff_datetime', 'dropoff_datetime'],
+      'store_and_fwd_flag': ['store_and_fwd_flag', 'store_and_fwd'],
+      'rate_code_id': ['ratecodeid', 'rate_code_id', 'ratecode_id'],
+      'pickup_location_id': ['pulocationid', 'pu_location_id', 'pickup_location_id'],
+      'dropoff_location_id': ['dolocationid', 'do_location_id', 'dropoff_location_id'],
+      'passenger_count': ['passengercount', 'passenger_count'],
+      'trip_distance': ['trip_distance', 'tripdistance'],
+      'fare_amount': ['fare_amount', 'fareamount'],
+      'extra': ['extra'],
+      'mta_tax': ['mta_tax', 'mtatax'],
+      'tip_amount': ['tip_amount', 'tipamount'],
+      'tolls_amount': ['tolls_amount', 'tollsamount'],
+      'ehail_fee': ['ehail_fee'],
+      'improvement_surcharge': ['improvement_surcharge'],
+      'total_amount': ['total_amount', 'total_amounts'],
+      'payment_type': ['payment_type', 'payment_type_id', 'paymenttype', 'paymenttypeid'],
+      'trip_type': ['trip_type', 'triptype'],
+      'congestion_surcharge': ['congestion_surcharge'],
+    }
+
+    # create a mapping from lower-case source col -> actual col name
+    cols_lower = {c.lower(): c for c in result.columns}
+    rename_map = {}
+    for canonical, cand_list in candidates.items():
+      for cand in cand_list:
+        if cand.lower() in cols_lower:
+          rename_map[cols_lower[cand.lower()]] = canonical
+          break
+
+    if rename_map:
+      result = result.rename(columns=rename_map)
+
   return result
 
 

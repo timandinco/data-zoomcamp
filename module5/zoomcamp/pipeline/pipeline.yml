@@ -20,7 +20,7 @@ start_date: "2022-01-01"
 # Common pattern: `duckdb: duckdb-default` for local dev.
 # Docs (connections): https://getbruin.com/docs/bruin/commands/connections
 default_connections:
-  duckdb: duckdb-zoomcamp
+  duckdb: "duckdb-zoomcamp"
 
 # Define pipeline variables using JSON Schema and defaults.
 # - Variables must have a `default` so assets can render without `--var`.
@@ -32,7 +32,7 @@ variables:
     type: array  # should be: array
     items:
       type: string  # should be: string
-    default: ["yellow"]  # e.g. ["yellow", "green"]
+    default: ["green"]  # e.g. ["yellow", "green"]
 #   other_string_var: (optional) Add your own variable and use it in both Python and SQL assets.
 #     type: string
 #     default: "my_value"

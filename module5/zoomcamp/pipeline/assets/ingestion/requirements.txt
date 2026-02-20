@@ -1,5 +1,5 @@
 # Minimal dependencies for the ingestion asset
 pandas==2.2.3
-duckdb==1.11.0
+duckdb>=0.8,<1.6
 requests==2.31.0
 
