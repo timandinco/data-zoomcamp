@@ -224,3 +224,5 @@ logs/runs
 logs/*.log
 *.py[cod]
 .vscode/
+.cursor/
+.dlt/ 
