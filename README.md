@@ -9,3 +9,6 @@ Workshop Codespaces
 
 ## Module 4 
 [Module 4] (https://github.com/timandinco/data-zoomcamp/tree/main/module4b) Homework Page
+
+## Workshop 1 
+[Workshop 1] (https://github.com/timandinco/data-zoomcamp/tree/main/workshop1) Homework Page
