@@ -12,3 +12,6 @@ Workshop Codespaces
 
 ## Workshop 1 
 [Workshop 1] (https://github.com/timandinco/data-zoomcamp/tree/main/workshop1) Homework Page
+
+## Module 6 
+[Module 6]  (https://github.com/timandinco/data-zoomcamp/blob/main/module6) Work Page
