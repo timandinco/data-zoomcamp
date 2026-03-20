@@ -11,11 +11,11 @@ blob:
 taskmanager:
   memory:
     process:
-      size: 1728m
+      size: 512m
     jvm-metaspace:
       size: 512m  # added for PyFlink
   bind-host: 0.0.0.0
-  numberOfTaskSlots: 15
+  numberOfTaskSlots: 1
 jobmanager:
   execution:
     failover-strategy: region
