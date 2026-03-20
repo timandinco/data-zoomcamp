@@ -111,7 +111,8 @@ LIMIT 3;
 
 Which PULocationID had the most trips in a single 5-minute window?
 
-**Answer: **
+**Answer:**
+
 74
 
 Helpful Notes: 
@@ -157,12 +158,13 @@ How many trips were in the longest session?
 
 
 ```SQL
-CREATE TABLE processed_green_trip_aggregated_session (
-     window_start TIMESTAMP,
-     PULocationID INT,
-     num_trips BIGINT,
-     PRIMARY KEY (window_start, PULocationID)
- );
+CREATE TABLE processed_green_trip_sessions (
+    window_start TIMESTAMP,
+    window_end TIMESTAMP,
+    PULocationID INT,
+    num_trips BIGINT,
+    PRIMARY KEY (window_start, window_end, PULocationID) 
+);
 ```
 
 
