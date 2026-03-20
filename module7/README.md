@@ -155,8 +155,6 @@ Write the results to a PostgreSQL table and find the PULocationID with the longe
 
 How many trips were in the longest session?
 
-
-
 ```SQL
 CREATE TABLE processed_green_trip_sessions (
     window_start TIMESTAMP,
@@ -166,5 +164,48 @@ CREATE TABLE processed_green_trip_sessions (
     PRIMARY KEY (window_start, window_end, PULocationID) 
 );
 ```
+
+
+The key to this task is the **PARTITION BY** statement. Without this, the num_trips inculdes all PULocationID's for a window. See -> https://nightlies.apache.org/flink/flink-docs-master/docs/sql/reference/queries/window-tvf/#session
+
+```SQL
+
+INSERT INTO {aggregated_table}
+        SELECT
+            window_start,
+            window_end,
+            PULocationID,
+            COUNT(*) AS num_trips
+        FROM TABLE(
+            SESSION(TABLE {source_table} PARTITION BY PULocationID, 
+                    DESCRIPTOR(event_timestamp), 
+                    INTERVAL '5' MINUTE)
+        )
+        GROUP BY PULocationID, window_start, window_end;
+```
+
+```
+docker exec -it module7-jobmanager-1 flink run -py /opt/src/job/green_trip_job_session.py
+```
+
+**Answer**
+
+81
+
+## Question 6. Tumbling window - largest tip
+
+Create a Flink job that uses a 1-hour tumbling window to compute the total tip_amount per hour (across all locations).
+
+Which hour had the highest total tip amount?
+
+```
+docker exec -it module7-jobmanager-1 flink run -py /opt/src/job/green_trip_job_tips.py
+```
+
+
+**Answer**
+
+2025-10-16 18:00:00
+
 
 
