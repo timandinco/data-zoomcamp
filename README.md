@@ -17,4 +17,5 @@ Workshop Codespaces
 [Module 6]  (https://github.com/timandinco/data-zoomcamp/blob/main/module6) Work Page
 
 ## Module 7 
-[Module 7] (https://github.com/timandinco/data-zoomcamp/blob/main/module7) Work Page
+[Module 7] (https://github.com/timandinco/data-zoomcamp/tree/main/module7) Homework Page
+
